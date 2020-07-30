@@ -9,15 +9,6 @@
   </ItemGroup>
 
   <ItemGroup>
-    <Folder Include="Interface\City\" />
-    <Folder Include="Interface\Country\" />
-    <Folder Include="Interface\State\" />
-    <Folder Include="Service\City\" />
-    <Folder Include="Service\Country\" />
-    <Folder Include="Service\State\" />
-  </ItemGroup>
-
-  <ItemGroup>
     <PackageReference Include="Microsoft.EntityFrameworkCore" Version="3.1.6" />
   </ItemGroup>
 

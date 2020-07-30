@@ -13,7 +13,7 @@ using System.Linq;
 
 namespace Common.GenericController
 {
-    class GenericController:Controller
+    public class GenericController:Controller
     {
         public ControllerInfo fillControllerInfo()
         {

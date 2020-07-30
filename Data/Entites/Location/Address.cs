@@ -4,7 +4,7 @@ using System.Text;
 
 namespace Data.Entites
 {
-    class State
+    class Address:GenericRepository<Address>
     {
     }
 }

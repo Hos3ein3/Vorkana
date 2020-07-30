@@ -25,19 +25,5 @@ namespace Common.Enumeration
             return list;
         }
     }
-    public enum Region:byte
-    {
-
-    }
-    public enum BanksName:byte
-    {
-
-    }
-    public enum MessageType:byte
-    {
-        Success = 0,
-        Danger = 1,
-        Warning = 2,
-        Info = 3,
-    }
+    
 }

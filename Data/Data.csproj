@@ -12,4 +12,10 @@
     <ProjectReference Include="..\Common\Common.csproj" />
   </ItemGroup>
 
+  <ItemGroup>
+    <Folder Include="Entites\Blog\" />
+    <Folder Include="Entites\Sale\" />
+    <Folder Include="Entites\Product\" />
+  </ItemGroup>
+
 </Project>

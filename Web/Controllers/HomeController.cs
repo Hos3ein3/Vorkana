@@ -5,17 +5,23 @@ using System.Linq;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Logging;
+using Service.Interface;
 using Web.Models;
+using System.IO;
+using Common.GenericController;
 
 namespace Web.Controllers
 {
-    public class HomeController : Controller
+    public class HomeController : GenericController
     {
-        private readonly ILogger<HomeController> _logger;
-
-        public HomeController(ILogger<HomeController> logger)
+        private readonly IStateService stateService;
+        private readonly ICityService cityService;
+        private readonly ICountryService countryService;
+        public HomeController(ICountryService _countryService, IStateService _stateService, ICityService _cityService)
         {
-            _logger = logger;
+            cityService = _cityService;
+            stateService = _stateService;
+            countryService = _countryService;
         }
 
         public IActionResult Index()

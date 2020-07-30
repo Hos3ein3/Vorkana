@@ -18,6 +18,7 @@
     <Folder Include="wwwroot\blog\upload\sound\" />
     <Folder Include="wwwroot\blog\upload\video\" />
     <Folder Include="wwwroot\js\commonJS\" />
+    <Folder Include="wwwroot\project\" />
   </ItemGroup>
 
   <ItemGroup>

@@ -10,14 +10,14 @@ using System.Text;
 using System.Threading.Tasks;
 using X.PagedList;
 using Common.GenericController;
-using Data.Repository;
+using Data;
 
 namespace Service.Service
 {
     public class GenericService<T> : IGenericService<T> where T : class
     {
         
-        protected readonly GeenricRepository<T> repositoryFunctions;
+        protected readonly GenericRepository<T> repositoryFunctions;
 
         public virtual IPagedList<T> Pagination(IQueryable<T> specification = null, bool isExportPageList = true, int pageNumber = 1, int pageSize = 10, bool isDesc = true, string sortColumn = "")
         {

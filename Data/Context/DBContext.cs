@@ -1,10 +1,12 @@
-﻿using System;
+﻿using Data.Entites;
+using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
+using System;
 using System.Collections.Generic;
 using System.Text;
 
 namespace Data.Context
 {
-    class DBContext
+    public partial class DBContext: IdentityDbContext<User>
     {
     }
 }

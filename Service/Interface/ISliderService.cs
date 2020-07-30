@@ -11,11 +11,5 @@ namespace Service.Interface
     {
         Task<Tuple<Slider, ResultStatus>> FillModel(Slider slider);
 
-        Task<Tuple<Slider, ResultStatus>> Add(Slider slider);
-
-        Task<Tuple<Slider, ResultStatus>> Edit(Slider slider);
-
-        Task<Tuple<Slider, ResultStatus>> Delete(Slider slider,bool isLogic);
-
     }
 }

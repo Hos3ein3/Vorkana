@@ -1,0 +1,20 @@
+<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <TargetFramework>netcoreapp3.1</TargetFramework>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\Data\Data.csproj" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Folder Include="Interface\City\" />
+    <Folder Include="Interface\Country\" />
+    <Folder Include="Interface\State\" />
+    <Folder Include="Service\City\" />
+    <Folder Include="Service\Country\" />
+    <Folder Include="Service\State\" />
+  </ItemGroup>
+
+</Project>

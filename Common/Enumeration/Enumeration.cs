@@ -1,0 +1,43 @@
+﻿
+using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Text;
+using System.Web.Mvc;
+
+namespace Common.Enumeration
+{
+    public static class Enumeration
+    {
+        public static List<SelectListItem> GetSelectValueEnum<T>(string selectedValue) where T : struct, IConvertible
+        {
+            List<SelectListItem> list = new List<SelectListItem>();
+            foreach (var eVal in Enum.GetValues(typeof(T)))
+            {
+                list.Add(new SelectListItem
+                {
+                    Text = Enum.GetName(typeof(T), eVal).Replace("_", " "),
+                    Value = ((byte)eVal).ToString(),
+                    Selected = (eVal.ToString() == selectedValue) ? true : false
+                });
+            }
+
+            return list;
+        }
+    }
+    public enum Region:byte
+    {
+
+    }
+    public enum BanksName:byte
+    {
+
+    }
+    public enum MessageType:byte
+    {
+        Success = 0,
+        Danger = 1,
+        Warning = 2,
+        Info = 3,
+    }
+}

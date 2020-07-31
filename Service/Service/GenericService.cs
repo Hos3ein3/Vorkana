@@ -1,5 +1,5 @@
 ﻿using Common.Enumeration;
-using Data.Entites.ResultStatus;
+using Data.Entities.ResultStatus;
 using Data.Context;
 using Microsoft.EntityFrameworkCore;
 using Service.Interface;

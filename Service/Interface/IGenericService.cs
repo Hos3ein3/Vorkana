@@ -1,5 +1,5 @@
 ﻿using Common.GenericController;
-using Data.Entites.ResultStatus;
+using Data.Entities.ResultStatus;
 using System;
 using System.Collections.Generic;
 using System.Linq;

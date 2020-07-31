@@ -2,13 +2,14 @@
 using System;
 using System.Collections.Generic;
 using System.Text;
+using Data.Entities;
 
 namespace Service.Service
 {
-    public class StateService:GenericService<Data.Entites.State> , IStateService
+    public class StateService:GenericService<State> , IStateService
     {
-        private readonly Data.Entites.State state;
-        public StateService(Data.Entites.State _state)
+        private readonly State state;
+        public StateService(State _state)
         {
             state = _state;
         }

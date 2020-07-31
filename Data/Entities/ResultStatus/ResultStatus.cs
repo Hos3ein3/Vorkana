@@ -3,7 +3,7 @@ using System;
 using System.Collections.Generic;
 using System.Text;
 
-namespace Data.Entites.ResultStatus
+namespace Data.Entities.ResultStatus
 {
     public class ResultStatus
     {

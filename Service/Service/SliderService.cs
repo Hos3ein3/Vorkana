@@ -1,6 +1,6 @@
 ﻿using Common.Enumeration;
-using Data.Entites;
-using Data.Entites.ResultStatus;
+using Data.Entities;
+using Data.Entities.ResultStatus;
 using Service.Interface;
 using System;
 using System.Collections.Generic;

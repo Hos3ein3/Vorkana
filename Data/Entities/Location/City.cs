@@ -4,7 +4,7 @@ using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
 using System.Text;
 
-namespace Data.Entites
+namespace Data.Entities
 {
     public class City:GenericRepository<City>
     {

@@ -5,17 +5,17 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <Compile Remove="Entites\**" />
+    <EmbeddedResource Remove="Entites\**" />
+    <None Remove="Entites\**" />
+  </ItemGroup>
+
+  <ItemGroup>
     <PackageReference Include="Microsoft.AspNetCore.Identity.EntityFrameworkCore" Version="3.1.6" />
   </ItemGroup>
 
   <ItemGroup>
     <ProjectReference Include="..\Common\Common.csproj" />
-  </ItemGroup>
-
-  <ItemGroup>
-    <Folder Include="Entites\Blog\" />
-    <Folder Include="Entites\Sale\" />
-    <Folder Include="Entites\Product\" />
   </ItemGroup>
 
 </Project>

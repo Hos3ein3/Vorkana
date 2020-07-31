@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using System.Text;
 
-namespace Data.Entites
+namespace Data.Entities
 {
     class Address:GenericRepository<Address>
     {

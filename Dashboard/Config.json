@@ -5,9 +5,6 @@
     "DashboardUrl": "",
     "APIUrl": ""
   },
-  "Path": {
-    "SignInUrl": ""
-  },
   "Frontend": {
     "ReadImage": "",
     "WriteImage": "",

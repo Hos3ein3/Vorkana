@@ -4,7 +4,8 @@ using System.Text;
 
 namespace Data.Entities
 {
-    class Address:GenericRepository<Address>
+    public class Address:GenericRepository<Address>
     {
+        
     }
 }

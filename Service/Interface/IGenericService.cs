@@ -1,5 +1,7 @@
-﻿using Common.GenericController;
+﻿using Common.Enumeration;
+using Common.GenericController;
 using Data.Entities.ResultStatus;
+using Microsoft.AspNetCore.Http;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -20,5 +22,6 @@ namespace Service.Interface
         Task<ResultStatus> Delete(int Id);
         Task<ResultStatus> SaveAsync();
         ResultStatus Save();
+        Task<ResultStatus> UploadFiles(IFormFile file, FileType fileType, bool isDeleteImage, string fileName, string hostingEnvironmentWebRootPath, string path, string modelId, string fileExtensions, int maxSize = 0, int width = 0, int height = 0);
     }
 }

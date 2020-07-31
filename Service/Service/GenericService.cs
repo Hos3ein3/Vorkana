@@ -11,13 +11,16 @@ using System.Threading.Tasks;
 using X.PagedList;
 using Common.GenericController;
 using Data;
+using Microsoft.AspNetCore.Http;
+using System.IO;
+using Common.FileUploader;
 
 namespace Service.Service
 {
     public class GenericService<T> : IGenericService<T> where T : class
     {
         
-        protected readonly GenericRepository<T> repositoryFunctions;
+        protected readonly GenericRepository<T> genericRepository;
 
         public virtual IPagedList<T> Pagination(IQueryable<T> specification = null, bool isExportPageList = true, int pageNumber = 1, int pageSize = 10, bool isDesc = true, string sortColumn = "")
         {
@@ -30,7 +33,7 @@ namespace Service.Service
 
             var propertyInfo = typeof(T).GetProperty(sortColumnParam);
 
-            var query = specification == null ? repositoryFunctions.GetAll() : specification;
+            var query = specification == null ? genericRepository.GetAll() : specification;
           
 
             if (isDesc)
@@ -43,7 +46,7 @@ namespace Service.Service
         public virtual IPagedList<T> Pagination(IQueryable<T> specification = null, int pageNumber = 1, int pageSize = 10)
         {
             IPagedList<T> resultList;
-            var query = specification == null ? repositoryFunctions.GetAll() : specification;
+            var query = specification == null ? genericRepository.GetAll() : specification;
             
             resultList = query.ToPagedList<T>(pageNumber, pageSize);
 
@@ -57,7 +60,7 @@ namespace Service.Service
 
             try
             {
-                T model = await repositoryFunctions.GetByIdAsync(Id);
+                T model = await genericRepository.GetByIdAsync(Id);
 
                 if (model != null)
                 {
@@ -92,7 +95,7 @@ namespace Service.Service
 
             try
             {
-                var query = specification == null ? repositoryFunctions.GetAll() : specification;
+                var query = specification == null ? genericRepository.GetAll() : specification;
                 T model = query.AsEnumerable().Where(x => x.GetType().GetProperty("Id").GetValue(x) != null && x.GetType().GetProperty("Id").GetValue(x).ToString().Equals(id.ToString())).FirstOrDefault();
 
                 if (model != null)
@@ -143,8 +146,8 @@ namespace Service.Service
                     return Tuple.Create(model, resultStatus);
                 }
 
-                repositoryFunctions.Add(model);
-                await repositoryFunctions.SaveAsync();
+                genericRepository.Add(model);
+                await genericRepository.SaveAsync();
                 resultStatus.Type = MessageType.Success;
                 resultStatus.Message = "اطلاعات با موفقیت ثبت شد";
                 return Tuple.Create(model, resultStatus);
@@ -181,8 +184,8 @@ namespace Service.Service
                     return Tuple.Create(model, resultStatus);
                 }
 
-                repositoryFunctions.Update(model);
-                await repositoryFunctions.SaveAsync();
+                genericRepository.Update(model);
+                await genericRepository.SaveAsync();
                 resultStatus.Type = MessageType.Success;
                 resultStatus.Message = "اطلاعات با موفقیت بروزرسانی شد";
                 return Tuple.Create(model, resultStatus);
@@ -205,11 +208,11 @@ namespace Service.Service
 
             try
             {
-                T model = await repositoryFunctions.GetByIdAsync(Id);
+                T model = await genericRepository.GetByIdAsync(Id);
                 if (model != null)
                 {
-                    repositoryFunctions.Delete(model);
-                    await repositoryFunctions.SaveAsync();
+                    genericRepository.Delete(model);
+                    await genericRepository.SaveAsync();
                 }
                 else
                 {
@@ -238,7 +241,7 @@ namespace Service.Service
 
             try
             {
-                await repositoryFunctions.SaveAsync();
+                await genericRepository.SaveAsync();
                 return resultStatus;
             }
             catch (Exception exception)
@@ -258,7 +261,7 @@ namespace Service.Service
 
             try
             {
-                repositoryFunctions.Save();
+                genericRepository.Save();
                 return resultStatus;
             }
             catch (Exception exception)
@@ -270,7 +273,66 @@ namespace Service.Service
                 return resultStatus;
             }
         }
-        
+        public async Task<ResultStatus> UploadFiles(IFormFile file, FileType fileType, bool isDeleteFile, string fileName, string hostingEnvironmentWebRootPath, string path, string modelId, string fileExtensions, int maxSize = 0, int width = 0, int height = 0)
+        {
+
+            ResultStatus resultStatus = new ResultStatus();
+            resultStatus.IsSuccessed = true;
+            resultStatus.Type = MessageType.Success;
+
+            try
+            {
+                path = hostingEnvironmentWebRootPath + path + modelId;
+                Directory.CreateDirectory(path);
+                path = path + "\\" + fileName;
+
+                if (file != null)
+                {
+                    if (File.Exists(path))
+                        File.Delete(path);
+                    if (fileType == FileType.Image)
+                    {
+                        GenericFileUploader.UploadImage(file, path, fileExtensions, 0, 0, 0);
+                    }
+                    else if (fileType == FileType.Video)
+                    {
+                        GenericFileUploader.UploadVideo(file, path, fileExtensions, 0);
+                    }
+                    else if (fileType == FileType.Sound)
+                    {
+                        GenericFileUploader.UploadSound(file, path, fileExtensions, 0);
+                    }
+                    else if (fileType == FileType.Document)
+                    {
+                        GenericFileUploader.UploadDocument(file, path, fileExtensions, 0);
+                    }
+                    else if (fileType == FileType.Zip)
+                    {
+                        GenericFileUploader.UploadZip(file, path, fileExtensions, 0);
+                    }
+                    else
+                    {
+                        GenericFileUploader.UploadFiles(file, path, fileExtensions, 0);
+                    }
+                }
+                else if (isDeleteFile)
+                {
+                    if (File.Exists(path))
+                        File.Delete(path);
+                }
+
+
+                return resultStatus;
+            }
+            catch (Exception exception)
+            {
+                resultStatus.IsSuccessed = false;
+                resultStatus.Message = "خطایی رخ داده است";
+                resultStatus.Type = MessageType.Danger;
+                resultStatus.ErrorException = exception;
+                throw new Exception("", exception);
+            }
+        }
     }
 
 }

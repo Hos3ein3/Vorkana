@@ -15,6 +15,15 @@ namespace Common.Enumeration
     {
 
     }
+    public enum FileType : byte
+    {
+        Image,
+        Video,
+        Sound,
+        Document,
+        Zip,
+        Other
+    }
     public enum MessageType : byte
     {
         Success = 0,

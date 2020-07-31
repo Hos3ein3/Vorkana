@@ -5,7 +5,7 @@ using System.Text;
 
 namespace Data.Entities
 {
-    public class User: IdentityUser
+    public class UserIdentity: IdentityUser
     {
     }
 }

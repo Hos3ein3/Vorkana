@@ -13,6 +13,15 @@ namespace Data
     public class GenericRepository<T> where T : class
     {
         protected readonly DBContext dBContext;
+        //public GenericRepository(DBContext _dbContext)
+        //{
+        //    dBContext = _dbContext;
+        //}
+        //DBContext dBContext = new DBContext(null);
+        public virtual T GetById(int id)
+        {
+            return dBContext.Set<T>().Find(id);
+        }
         public virtual async Task<T> GetByIdAsync(int id)
         {
             return await dBContext.Set<T>().FindAsync(id);

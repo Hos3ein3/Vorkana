@@ -15,14 +15,20 @@ namespace Data.Context
         }
 
         #region Entities
-        public City City { get; set; }
-        public State State { get; set; }
-        public Country Country { get; set; }
+        //public City City { get; set; }
+        //public State State { get; set; }
+        //public Country Country { get; set; }
+        public DbSet<City> Cities { get; set; }
+        public DbSet<State> States { get; set; }
+        public DbSet<Country> Countries { get; set; }
         #endregion
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
             base.OnModelCreating(modelBuilder);
         }
+
+
+
     }
 
 }

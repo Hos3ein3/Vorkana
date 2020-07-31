@@ -9,6 +9,7 @@ using Service.Interface;
 using Web.Models;
 using System.IO;
 using Common.GenericController;
+using Common.Alerts;
 
 namespace Web.Controllers
 {
@@ -26,6 +27,7 @@ namespace Web.Controllers
 
         public IActionResult Index()
         {
+            //string test = Alerts.Success["LoginSuccess"];
             return View();
         }
 

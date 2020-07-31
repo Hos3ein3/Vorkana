@@ -6,7 +6,7 @@ using Data.Entities;
 
 namespace Service.Service
 {
-    public class StateService:GenericService<State> , IStateService
+    public class StateService : GenericService<State>, IStateService
     {
         private readonly State state;
         public StateService(State _state)

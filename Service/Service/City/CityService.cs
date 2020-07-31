@@ -6,7 +6,7 @@ using Service.Interface;
 
 namespace Service.Service
 {
-    public class CityService:GenericService<City>,ICityService
+    public class CityService : GenericService<City>, ICityService
     {
         private readonly City city;
         public CityService(City _city)

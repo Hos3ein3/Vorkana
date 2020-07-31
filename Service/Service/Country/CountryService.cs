@@ -6,7 +6,7 @@ using Data.Entities;
 
 namespace Service.Service
 {
-    public class CountryService:GenericService<Country> , ICountryService
+    public class CountryService : GenericService<Country>, ICountryService
     {
         private readonly Country country;
         public CountryService(Country _country)

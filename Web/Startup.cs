@@ -9,6 +9,8 @@ using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 using Service.Interface;
 using Service.Service;
+using Common;
+using Common.Alerts;
 
 namespace Web
 {
@@ -57,6 +59,9 @@ namespace Web
                     name: "default",
                     pattern: "{controller=Home}/{action=Index}/{id?}");
             });
+
+            //Initializing Alerts in Common Class Library from the json file
+            Alerts.Initialize();
         }
     }
 }

@@ -8,10 +8,10 @@ namespace Service.Service
 {
     public class CityService : GenericService<City>, ICityService
     {
-        private readonly City city;
-        public CityService(City _city)
+        private readonly City _city;
+        public CityService(City city)
         {
-            city = _city;
+            _city = city;
         }
     }
 }

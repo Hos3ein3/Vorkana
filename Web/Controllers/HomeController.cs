@@ -15,14 +15,14 @@ namespace Web.Controllers
 {
     public class HomeController : GenericController
     {
-        private readonly IStateService stateService;
-        private readonly ICityService cityService;
-        private readonly ICountryService countryService;
-        public HomeController(ICountryService _countryService, IStateService _stateService, ICityService _cityService)
+        private readonly IStateService _stateService;
+        private readonly ICityService _cityService;
+        private readonly ICountryService _countryService;
+        public HomeController(ICountryService countryService, IStateService stateService, ICityService cityService)
         {
-            cityService = _cityService;
-            stateService = _stateService;
-            countryService = _countryService;
+            _cityService = cityService;
+            _stateService = stateService;
+            _countryService = countryService;
         }
 
         public IActionResult Index()

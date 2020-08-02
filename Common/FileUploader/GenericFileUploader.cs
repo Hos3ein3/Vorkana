@@ -1,4 +1,5 @@
-﻿using Microsoft.AspNetCore.Http;
+﻿using Common.Image;
+using Microsoft.AspNetCore.Http;
 using System;
 using System.Collections.Generic;
 using System.IO;
@@ -9,28 +10,41 @@ namespace Common.FileUploader
 {
     public static class GenericFileUploader
     {
-        public static async void UploadImage(IFormFile imageFiles, string path, string fileExtensions = "jpeg,png,bmp,gif,svg", int maxSize = 0, int width = 0, int height = 0)
+        public static async void UploadImage(IFormFile file, string tempPath, string fileExtensions = "jpeg,jpg,png,bmp,gif,svg", uint maxSize = 0, int width = 0, int height = 0)
         {
             try
             {
                 // full path to file in temp location
-                fileExtensions = String.IsNullOrEmpty(fileExtensions) ? "jpeg,png,bmp,gif,svg" : fileExtensions;
+                fileExtensions = String.IsNullOrEmpty(fileExtensions) ? "jpeg,jpg,png,bmp,gif,svg" : fileExtensions;
 
-                if (imageFiles.Length > 0)
+                if (file.Length > 0 && (file.Length < maxSize || maxSize == 0))
                 {
-                    using (var stream = new FileStream(path, FileMode.Create))
+                    using (var stream = new FileStream(tempPath, FileMode.Create))
                     {
-                        await imageFiles.CopyToAsync(stream);
+                        var mime = GetMimeType(stream).Split("/");
+                        string fileType = mime[0];
+                        if (fileType == "image")
+                        {
+                            if (width > 0 && height > 0)
+                            {
+                                await file.CopyToAsync(ThumbnailMaker.CreateThumbnailFromStream(stream, width, height));
+                            }
+                            else
+                            {
+                                await file.CopyToAsync(stream);
+                            }
+                        }
+
                     }
                 }
 
             }
             catch (Exception exception)
             {
-
                 throw new Exception("", exception);
             }
         }
+
         public static async void UploadVideo(IFormFile videoFiles, string path, string fileExtensions = "mp4,3gp,mkv,wmv,avi", int maxSize = 0)
         {
 
@@ -152,9 +166,19 @@ namespace Common.FileUploader
         }
 
 
-        private static string GetMimeType(byte[] dataBytes)
+
+        private static string GetMimeType(FileStream stream)
         {
-            return HeyRed.Mime.MimeGuesser.GuessMimeType(dataBytes);
+            return HeyRed.Mime.MimeGuesser.GuessMimeType(stream);
+        }
+
+        private enum FileType
+        {
+            Audio,
+            Picture,
+            Video,
+            Document,
+            Archive
         }
     }
 }

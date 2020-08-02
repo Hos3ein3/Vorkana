@@ -18,5 +18,15 @@ namespace Common.Image
                 return memoryStream.ToArray();
             }
         }
+
+        public static Stream CreateThumbnailFromStream(Stream stream, int width = 1280, int height = 600)
+        {
+            Bitmap bitmap = new Bitmap(System.Drawing.Image.FromStream(stream), width, height);
+            using (Stream outStream = new MemoryStream())
+            {
+                bitmap.Save(outStream, ImageFormat.Jpeg);
+                return outStream;
+            }
+        }
     }
 }

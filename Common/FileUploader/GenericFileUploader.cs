@@ -85,7 +85,7 @@ namespace Common.FileUploader
 
             try
             {
-                fileExtensions = String.IsNullOrEmpty(fileExtensions) ? "doc,docx,pdf,txt,html,hml,xls,xlsx,ppt,pptx" : fileExtensions;
+                fileExtensions = String.IsNullOrEmpty(fileExtensions) ? "doc,docx,pdf,txt,html,hml,xls,xlsx,ppt,pptx,cvs" : fileExtensions;
                 // full path to file in temp location
                 //length of file in bytes
 
@@ -104,7 +104,7 @@ namespace Common.FileUploader
                 throw new Exception("", exception);
             }
         }
-        public static async void UploadZip(IFormFile zipFiles, string path, string fileExtensions = "zip,rar,iso", int maxSize = 0)
+        public static async void UploadArchive(IFormFile zipFiles, string path, string fileExtensions = "zip,rar,iso,tar,tar.gz", int maxSize = 0)
         {
 
             try
@@ -136,7 +136,7 @@ namespace Common.FileUploader
                 // full path to file in temp location
                 //length of file in bytes
 
-                if (files.Length > 0 && files.Length < maxSize || maxSize == 0)
+                if (files.Length > 0 && (files.Length < maxSize || maxSize == 0))
                 {
                     using (var stream = new FileStream(path, FileMode.Create))
                     {

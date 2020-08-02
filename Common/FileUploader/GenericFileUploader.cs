@@ -3,7 +3,7 @@ using System;
 using System.Collections.Generic;
 using System.IO;
 using System.Text;
-
+using System.Threading.Tasks;
 
 namespace Common.FileUploader
 {
@@ -11,7 +11,6 @@ namespace Common.FileUploader
     {
         public static async void UploadImage(IFormFile imageFiles, string path, string fileExtensions = "jpeg,png,bmp,gif,svg", int maxSize = 0, int width = 0, int height = 0)
         {
-
             try
             {
                 // full path to file in temp location
@@ -152,5 +151,10 @@ namespace Common.FileUploader
             }
         }
 
+
+        private static string GetMimeType(byte[] dataBytes)
+        {
+            return HeyRed.Mime.MimeGuesser.GuessMimeType(dataBytes);
+        }
     }
 }

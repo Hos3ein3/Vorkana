@@ -19,6 +19,7 @@ namespace Data.Context
         public DbSet<State> States { get; set; }
         public DbSet<Country> Countries { get; set; }
         #endregion
+
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
             base.OnModelCreating(modelBuilder);

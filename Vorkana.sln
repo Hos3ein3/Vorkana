@@ -3,7 +3,7 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio Version 16
 VisualStudioVersion = 16.0.29709.97
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Web", "Web\Web.csproj", "{1DAF2066-7328-4E3A-AAFB-0D986D65E6D2}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Frontend", "Web\Frontend.csproj", "{1DAF2066-7328-4E3A-AAFB-0D986D65E6D2}"
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Application", "Application", "{08FB5367-DF7C-4D0A-81CF-E20156BA7255}"
 EndProject
@@ -24,7 +24,7 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Service", "Service\Service.
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "API", "API\API.csproj", "{D82114C0-70B7-4BA5-BA9F-0D66E6E5F767}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Dashboard", "Dashboard\Dashboard.csproj", "{5780230A-8F7A-4A9F-8735-4E19F1183E7B}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Dashboard", "Dashboard\Dashboard.csproj", "{5780230A-8F7A-4A9F-8735-4E19F1183E7B}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution

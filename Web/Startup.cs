@@ -19,7 +19,7 @@ using Microsoft.AspNetCore.Authentication.Cookies;
 using Microsoft.EntityFrameworkCore.Design;
 using System.IO;
 
-namespace Web
+namespace Frontend
 {
     public class Startup
     {

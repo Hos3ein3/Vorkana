@@ -11,7 +11,7 @@ using System.IO;
 using Common.GenericController;
 using Common.Alerts;
 
-namespace Web.Controllers
+namespace Frontend.Controllers
 {
     public class HomeController : GenericController
     {

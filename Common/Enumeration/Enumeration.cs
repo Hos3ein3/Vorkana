@@ -24,6 +24,15 @@ namespace Common.Enumeration
 
             return list;
         }
+        public static List<string> GetAll<T>() where T : struct, IConvertible
+        {
+            List<string> list = new List<string>();
+            foreach (var eVal in Enum.GetValues(typeof(T)))
+            {
+                list.Add(Enum.GetName(typeof(T), eVal).Replace("_", " "));
+            }
+            return list;
+        }
     }
     
 }

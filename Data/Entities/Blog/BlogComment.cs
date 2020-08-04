@@ -28,9 +28,9 @@ namespace Data.Entities
         /// <summary>
         /// شناسه نویسنده
         /// </summary>
-        //[Display(Name = "شناسه نویسنده")]
-        //[ForeignKey("AuthorId")]
-        //public UserIdentity Author { get; set; }
+        [Display(Name = "شناسه نویسنده")]
+        [ForeignKey("AuthorId")]
+        public UserIdentity Author { get; set; }
         /// <summary>
         /// مطلب
         /// </summary>

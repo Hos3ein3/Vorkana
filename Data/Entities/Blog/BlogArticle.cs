@@ -9,7 +9,7 @@ namespace Data.Entities
     /// <summary>
     /// کلاس وبلاگ و مقالات
     /// </summary>
-    public class BlogArticle :GenericRepository<BlogArticle>
+    public class BlogArticle : GenericRepository<BlogArticle>
     {
 
         public BlogArticle()
@@ -26,14 +26,14 @@ namespace Data.Entities
         /// شناسه نویسنده
         /// </summary>
         [Display(Name = "شناسه نویسنده")]
-       // [MaxLength(100, ErrorMessage = "شناسه نویسنده نمی تواند بیشتر از 100 کاراکتر باشد.")]
+        // [MaxLength(100, ErrorMessage = "شناسه نویسنده نمی تواند بیشتر از 100 کاراکتر باشد.")]
         public string UserIdentityId { get; set; }
         /// <summary>
         /// شناسه نویسنده
         /// </summary>
-        //[ForeignKey("UserIdentityId")]
-        //[Display(Name = "شناسه نویسنده")]
-        //public  UserIdentity UserIdentity { get; set; }      
+        [ForeignKey("UserIdentityId")]
+        [Display(Name = "شناسه نویسنده")]
+        public UserIdentity UserIdentity { get; set; }
         #endregion
 
         /// <summary>
@@ -63,7 +63,7 @@ namespace Data.Entities
         /// آدرس
         /// </summary>
         [Display(Name = "آدرس دوم")]
-                [Url(ErrorMessage = "آدرس مطالب باید وارد شود (از خط تیره نیز می توانید استفاده کنید)")]
+        [Url(ErrorMessage = "آدرس مطالب باید وارد شود (از خط تیره نیز می توانید استفاده کنید)")]
         //[RegularExpression(@"^[a-zA-Z0-9-\(\)]+$", ErrorMessage = "آدرس مطالب باید به صورت انگلیسی باشد (از خط تیره نیز می توانید استفاده کنید)")]
         //[MaxLength(100, ErrorMessage = "آدرس نمی تواند بیشتر از 100 کاراکتر باشد.")]
         public string ArticleURLSecound { get; set; }
@@ -91,13 +91,13 @@ namespace Data.Entities
         /// </summary>
         [Display(Name = "چکیده")]
         [Required(ErrorMessage = "چکیده را وارد نمایید")]
-       // [AllowHtml]
+        // [AllowHtml]
         public string Intro { get; set; }
         /// <summary>
         /// متن کامل
         /// </summary>
         [Display(Name = "متن کامل")]
-       // [AllowHtml]
+        // [AllowHtml]
         public string Description { get; set; }
         /// <summary>
         /// تصویر اصلی مطلب
@@ -185,17 +185,17 @@ namespace Data.Entities
         /// نظرات
         /// </summary>
         [Display(Name = "نظرات")]
-        public  ICollection<BlogComment> BlogComments { get; set; }
+        public ICollection<BlogComment> BlogComments { get; set; }
         /// <summary>
         /// دسته بندی مقالات
         /// </summary>
         [Display(Name = "دسته بندی مقالات")]
-        public  ICollection<BlogArticleBlogCategory> BlogArticleBlogCategory { get; set; }
+        public ICollection<BlogArticleBlogCategory> BlogArticleBlogCategory { get; set; }
         /// <summary>
         /// برچسب
         /// </summary>
         [Display(Name = "برچسب")]
         [DataType(DataType.MultilineText)]
-        public  ICollection<BlogArticleBlogTag> BlogArticleBlogTag { get; set; }
+        public ICollection<BlogArticleBlogTag> BlogArticleBlogTag { get; set; }
     }
 }

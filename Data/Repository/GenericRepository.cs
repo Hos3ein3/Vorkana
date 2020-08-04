@@ -13,10 +13,10 @@ namespace Data
     public class GenericRepository<T> where T : class
     {
         protected readonly DBContext _dBContext;
-        //public GenericRepository(DBContext dbContext)
-        //{
-        //    _dBContext = dbContext;
-        //}
+        public GenericRepository(DBContext dbContext)
+        {
+            _dBContext = dbContext;
+        }
         //DBContext dBContext = new DBContext(null);
         public virtual T GetById(int id)
         {

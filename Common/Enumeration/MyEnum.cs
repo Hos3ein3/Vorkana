@@ -15,7 +15,7 @@ namespace Common.Enumeration
     {
 
     }
-    public enum MessageType 
+    public enum MessageType
     {
         Success,
         Danger,
@@ -32,4 +32,13 @@ namespace Common.Enumeration
         Archive,
         Any
     }
+    
+    public enum HashAlorightm : byte
+    {
+        MD5,
+        SHA1,
+        SHA256,
+        RFC_2898
+    }
+
 }

@@ -15,9 +15,9 @@ namespace Data.Context
         }
 
         #region Entities
-        public DbSet<City> Cities { get; set; }
-        public DbSet<State> States { get; set; }
-        public DbSet<Country> Countries { get; set; }
+        public DbSet<City> City { get; set; }
+        public DbSet<State> State { get; set; }
+        public DbSet<Country> Country  { get; set; }
         #endregion
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)

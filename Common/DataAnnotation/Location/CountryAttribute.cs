@@ -4,7 +4,7 @@ using System.Text;
 
 namespace Common.DataAnnotation
 {
-    class StartDateDataAnnotationAttribute
+    class CountryAttribute
     {
     }
 }

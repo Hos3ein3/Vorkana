@@ -4,7 +4,7 @@ using System;
 using System.Collections.Generic;
 using System.IO;
 
-namespace Common.Alerts
+namespace Messages.Alerts
 {
     public class Alerts
     {
@@ -15,7 +15,7 @@ namespace Common.Alerts
 
         public static void Initialize()
         {
-            string path = Path.Combine(Directory.GetParent(Environment.CurrentDirectory).FullName, @"Common\Alerts\Alerts.json");
+            string path = Path.Combine(Directory.GetParent(Environment.CurrentDirectory).FullName, @"Messages\Alerts\Alerts.json");
             using (StreamReader r = new StreamReader(path))
             {
                 string json = r.ReadToEnd();

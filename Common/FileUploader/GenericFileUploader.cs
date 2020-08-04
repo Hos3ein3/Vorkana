@@ -10,7 +10,7 @@ namespace Common.FileUploader
 {
     public static class GenericFileUploader
     {
-        public static async void UploadImage(IFormFile file, string tempPath, string fileExtensions = "jpeg,jpg,png,bmp,gif,svg", uint maxSize = 0, int width = 0, int height = 0)
+        public static async void UploadImage(IFormFile file, string path, string fileExtensions = "jpeg,jpg,png,bmp,gif,svg", uint maxSize = 0, int width = 0, int height = 0)
         {
             try
             {
@@ -19,7 +19,7 @@ namespace Common.FileUploader
 
                 if (file.Length > 0 && (file.Length < maxSize || maxSize == 0))
                 {
-                    using (var stream = new FileStream(tempPath, FileMode.Create))
+                    using (var stream = new FileStream(path, FileMode.Create))
                     {
                         var mime = GetMimeType(stream).Split("/");
                         string fileType = mime[0];

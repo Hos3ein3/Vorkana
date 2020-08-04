@@ -6,7 +6,7 @@ using Newtonsoft.Json;
 using Newtonsoft.Json.Converters;
 using Newtonsoft.Json.Linq;
 
-namespace Common.Alerts
+namespace Messages.Alerts
 {
     public class AlertsModel
     {

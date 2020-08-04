@@ -24,11 +24,12 @@ namespace Common.Enumeration
         Zip,
         Other
     }
-    public enum MessageType : byte
+    public enum MessageType 
     {
-        Success = 0,
-        Danger = 1,
-        Warning = 2,
-        Info = 3,
+        Success,
+        Danger,
+        Warning,
+        Info,
     }
+    
 }

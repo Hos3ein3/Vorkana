@@ -15,15 +15,6 @@ namespace Common.Enumeration
     {
 
     }
-    public enum FileType : byte
-    {
-        Image,
-        Video,
-        Sound,
-        Document,
-        Zip,
-        Other
-    }
     public enum MessageType 
     {
         Success,
@@ -31,5 +22,14 @@ namespace Common.Enumeration
         Warning,
         Info,
     }
-    
+
+    public enum FileType
+    {
+        Audio,
+        Picture,
+        Video,
+        Document,
+        Archive,
+        Any
+    }
 }

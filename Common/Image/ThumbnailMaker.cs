@@ -19,10 +19,10 @@ namespace Common.Image
             }
         }
 
-        public static Stream CreateThumbnailFromStream(Stream stream, int width = 1280, int height = 600)
+        public static Stream CreateThumbnailFromStream(Stream stream, int width = 1280, int height = 600,string path)
         {
             Bitmap bitmap = new Bitmap(System.Drawing.Image.FromStream(stream), width, height);
-            using (Stream outStream = new MemoryStream())
+            using (Stream outStream = new FileStream(path,FileMode.Create))
             {
                 bitmap.Save(outStream, ImageFormat.Jpeg);
                 return outStream;

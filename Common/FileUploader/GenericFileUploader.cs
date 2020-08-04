@@ -1,8 +1,10 @@
-﻿using Common.Image;
+﻿using Common.Enumeration;
+using Common.Image;
 using Microsoft.AspNetCore.Http;
 using System;
 using System.Collections.Generic;
 using System.IO;
+using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
@@ -10,175 +12,152 @@ namespace Common.FileUploader
 {
     public static class GenericFileUploader
     {
-        public static async void UploadImage(IFormFile file, string path, string fileExtensions = "jpeg,jpg,png,bmp,gif,svg", uint maxSize = 0, int width = 0, int height = 0)
-        {
-            try
-            {
-                // full path to file in temp location
-                fileExtensions = String.IsNullOrEmpty(fileExtensions) ? "jpeg,jpg,png,bmp,gif,svg" : fileExtensions;
 
-                if (file.Length > 0 && (file.Length < maxSize || maxSize == 0))
+        public static async Task UploadImage(IFormFile file, string path, int maxSize = 0, string fileExtensions = "", int width = 0, int height = 0)
+        {
+            //fileExtensions = String.IsNullOrEmpty(fileExtensions) ? Extensions[FileType.Picture] : fileExtensions;
+
+            ValidateOrSetFileExtensionsListForFileType(ref fileExtensions, FileType.Picture);
+
+            string fileExtension = Path.GetExtension(file.FileName);
+            if (fileExtensions.Contains(fileExtension))
+            {
+                using (var stream = new FileStream(path, FileMode.Create))
                 {
-                    using (var stream = new FileStream(path, FileMode.Create))
+                    var mime = GetMimeType(stream).Split("/");
+                    string fileType = mime[0];
+                    if (fileType == "image")
                     {
-                        var mime = GetMimeType(stream).Split("/");
-                        string fileType = mime[0];
-                        if (fileType == "image")
+                        //await UploadFile(file, stream, path, maxSize);
+                        if (file.Length > 0 && (file.Length < maxSize || maxSize == 0))
                         {
-                            if (width > 0 && height > 0)
+                            try
                             {
-                                await file.CopyToAsync(ThumbnailMaker.CreateThumbnailFromStream(stream, width, height));
+                                if (width > 0 && height > 0)
+                                {
+                                    await file.CopyToAsync(ThumbnailMaker.CreateThumbnailFromStream(stream, width, height, path));
+                                }
+                                else
+                                {
+                                    await file.CopyToAsync(stream);
+                                }
                             }
-                            else
+                            catch (Exception exception)
                             {
-                                await file.CopyToAsync(stream);
+                                throw new Exception("", exception);
                             }
                         }
+                        throw new Exception("Invalid file size");
 
                     }
+                    throw new Exception("Invalid picture format");
                 }
+            }
+            throw new Exception("Invalid picture file extension");
 
-            }
-            catch (Exception exception)
-            {
-                throw new Exception("", exception);
-            }
         }
 
-        public static async void UploadVideo(IFormFile videoFiles, string path, string fileExtensions = "mp4,3gp,mkv,wmv,avi", int maxSize = 0)
+        public static async Task UploadVideo(IFormFile file, string path, int maxSize = 0, string fileExtensions = "")
         {
 
-            try
-            {
-                fileExtensions = String.IsNullOrEmpty(fileExtensions) ? "mp4,3gp,mkv,wmv,avi" : fileExtensions;
-                // full path to file in temp location
-                //length of file in bytes
+            //fileExtensions = String.IsNullOrEmpty(fileExtensions) ? Extensions[FileType.Video] : fileExtensions;
 
-                if (videoFiles.Length > 0 && videoFiles.Length < maxSize || maxSize == 0)
+            ValidateOrSetFileExtensionsListForFileType(ref fileExtensions, FileType.Video);
+
+            string fileExtension = Path.GetExtension(file.FileName);
+            if (fileExtensions.Contains(fileExtension))
+            {
+                using (var stream = new FileStream(path, FileMode.Create))
                 {
-                    using (var stream = new FileStream(path, FileMode.Create))
+                    var mime = GetMimeType(stream).Split("/");
+                    string fileType = mime[0];
+                    if (fileType == "video")
                     {
-                        await videoFiles.CopyToAsync(stream);
+                        await Upload(file, stream, path, maxSize);
                     }
+                    throw new Exception("Invalid video format");
                 }
-
             }
-            catch (Exception exception)
-            {
-
-                throw new Exception("", exception);
-            }
+            throw new Exception("Invalid video file extension");
         }
-        public static async void UploadSound(IFormFile soundFiles, string path, string fileExtensions = "mp3,voc", int maxSize = 0)
+
+        public static async Task UploadAudio(IFormFile file, string path, int maxSize = 0, string fileExtensions = "")
+        {
+            //fileExtensions = String.IsNullOrEmpty(fileExtensions) ? Extensions[FileType.Audio] : fileExtensions;
+
+            ValidateOrSetFileExtensionsListForFileType(ref fileExtensions, FileType.Audio);
+
+            string fileExtension = Path.GetExtension(file.FileName);
+            if (fileExtensions.Contains(fileExtension))
+            {
+                using (var stream = new FileStream(path, FileMode.Create))
+                {
+                    var mime = GetMimeType(stream).Split("/");
+                    string fileType = mime[0];
+                    if (fileType == "audio")
+                    {
+                        await Upload(file, stream, path, maxSize);
+                    }
+                    throw new Exception("Invalid audio format");
+                }
+            }
+            throw new Exception("Invalid audio file extension");
+        }
+        public static async Task UploadDocument(IFormFile documentFiles, string path, int maxSize = 0)
         {
 
-            try
-            {
-                fileExtensions = String.IsNullOrEmpty(fileExtensions) ? "mp3,voc" : fileExtensions;
-                // full path to file in temp location
-                //length of file in bytes
-
-                if (soundFiles.Length > 0 && soundFiles.Length < maxSize || maxSize == 0)
-                {
-                    using (var stream = new FileStream(path, FileMode.Create))
-                    {
-                        await soundFiles.CopyToAsync(stream);
-                    }
-                }
-
-            }
-            catch (Exception exception)
-            {
-
-                throw new Exception("", exception);
-            }
         }
-        public static async void UploadDocument(IFormFile documentFiles, string path, string fileExtensions = "doc,docx,pdf,txt,html,hml,xls,xlsx,ppt,pptx", int maxSize = 0)
+        public static async Task UploadArchive(IFormFile zipFiles, string path, int maxSize = 0)
         {
-
-            try
-            {
-                fileExtensions = String.IsNullOrEmpty(fileExtensions) ? "doc,docx,pdf,txt,html,hml,xls,xlsx,ppt,pptx,cvs" : fileExtensions;
-                // full path to file in temp location
-                //length of file in bytes
-
-                if (documentFiles.Length > 0 && documentFiles.Length < maxSize || maxSize == 0)
-                {
-                    using (var stream = new FileStream(path, FileMode.Create))
-                    {
-                        await documentFiles.CopyToAsync(stream);
-                    }
-                }
-
-            }
-            catch (Exception exception)
-            {
-
-                throw new Exception("", exception);
-            }
         }
-        public static async void UploadArchive(IFormFile zipFiles, string path, string fileExtensions = "zip,rar,iso,tar,tar.gz", int maxSize = 0)
+
+
+        private static async Task Upload(IFormFile file, Stream fileStream, string path, int maxSize = 0) // do not fucking check extension here 
         {
-
-            try
+            if (file.Length > 0 && (file.Length < maxSize || maxSize == 0))
             {
-                fileExtensions = String.IsNullOrEmpty(fileExtensions) ? "zip,rar,iso" : fileExtensions;
-                // full path to file in temp location
-                //length of file in bytes
-
-                if (zipFiles.Length > 0 && zipFiles.Length < maxSize || maxSize == 0)
+                try
                 {
-                    using (var stream = new FileStream(path, FileMode.Create))
-                    {
-                        await zipFiles.CopyToAsync(stream);
-                    }
+                    await file.CopyToAsync(fileStream);
                 }
-
+                catch (Exception exception)
+                {
+                    throw new Exception("", exception);
+                }
             }
-            catch (Exception exception)
-            {
-
-                throw new Exception("", exception);
-            }
+            throw new Exception("Invalid file size");
         }
-        public static async void UploadFiles(IFormFile files, string path, string fileExtensions = "", int maxSize = 0)
+
+        private static void ValidateOrSetFileExtensionsListForFileType(ref string fileExtensions, FileType fileType)
         {
-
-            try
+            if (String.IsNullOrEmpty(fileExtensions))
             {
-                // full path to file in temp location
-                //length of file in bytes
-
-                if (files.Length > 0 && (files.Length < maxSize || maxSize == 0))
-                {
-                    using (var stream = new FileStream(path, FileMode.Create))
-                    {
-                        await files.CopyToAsync(stream);
-                    }
-                }
-
+                fileExtensions = Extensions[fileType];
             }
-            catch (Exception exception)
+            else //validate fileExtensions argument against the dictionary
             {
-
-                throw new Exception("", exception);
+                var set1 = new HashSet<string>((Extensions[fileType]).Split(',').Select(t => t.Trim()));
+                var set2 = new HashSet<string>(fileExtensions.Split(',').Select(t => t.Trim()));
+                if (!set1.IsSupersetOf(set2))
+                {
+                    throw new Exception($"Specified extensions are invalid for {fileType} file");
+                }
             }
         }
 
-
+        private static Dictionary<FileType, string> Extensions = new Dictionary<FileType, string>()
+        {
+            [FileType.Picture] = "jpeg,jpg,png,bmp,gif,svg",
+            [FileType.Video] = "mp4,3gp,mkv,wmv,avi",
+            [FileType.Archive] = "zip,rar,iso,tar,tar.gz",
+            [FileType.Document] = "doc,docx,pdf,txt,html,hml,xls,xlsx,ppt,pptx",
+            [FileType.Audio] = "mp3,voc,m4a,wav"
+        };
 
         private static string GetMimeType(FileStream stream)
         {
             return HeyRed.Mime.MimeGuesser.GuessMimeType(stream);
         }
 
-        private enum FileType
-        {
-            Audio,
-            Picture,
-            Video,
-            Document,
-            Archive
-        }
     }
 }

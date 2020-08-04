@@ -10,6 +10,7 @@ EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Document", "Document", "{F7298532-EA49-4DC7-B035-388BC414789F}"
 	ProjectSection(SolutionItems) = preProject
 		..\..\V1\RegisterInfo.txt = ..\..\V1\RegisterInfo.txt
+		Tasks.txt = Tasks.txt
 	EndProjectSection
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Main", "Main", "{B16B38AC-C0CB-44E7-B606-C33EE0C82D23}"
@@ -25,6 +26,8 @@ EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "API", "API\API.csproj", "{D82114C0-70B7-4BA5-BA9F-0D66E6E5F767}"
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Dashboard", "Dashboard\Dashboard.csproj", "{5780230A-8F7A-4A9F-8735-4E19F1183E7B}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Blog", "Blog", "{334AF529-E63F-476D-9B07-13058477C4B8}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -67,6 +70,7 @@ Global
 		{F4CD2CD5-23CB-4813-A708-BA9E989BACD5} = {B16B38AC-C0CB-44E7-B606-C33EE0C82D23}
 		{D82114C0-70B7-4BA5-BA9F-0D66E6E5F767} = {08FB5367-DF7C-4D0A-81CF-E20156BA7255}
 		{5780230A-8F7A-4A9F-8735-4E19F1183E7B} = {08FB5367-DF7C-4D0A-81CF-E20156BA7255}
+		{334AF529-E63F-476D-9B07-13058477C4B8} = {F7298532-EA49-4DC7-B035-388BC414789F}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {6FD9EE38-20D2-48B8-97DC-F67E059F6B93}

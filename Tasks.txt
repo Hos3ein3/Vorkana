@@ -1,0 +1,31 @@
+Identity =>
+	Register with phoneNumber
+	Register with email
+	Register with username 
+
+	Give access level to users
+
+Blog =>
+	Create Article
+	Create Category
+
+Tables =>
+	Create Custom DataTable for admin panel
+
+DataAnnotation =>
+	Compelete All DataAnnotation
+
+Sms =>
+	Get sms service and complete class
+
+Email =>
+	Create Email Class for send Email with SMTP and DomainAddress
+
+City =>
+	Complete Services for city
+
+State =>
+	Compelete Services for state
+
+Country =>
+	Compelete Services for Country

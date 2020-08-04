@@ -157,7 +157,7 @@ namespace Common.FileUploader
                             await Upload(file, stream, path, maxSize);
                         }
                     }
-                    throw new Exception("Invalid archive format");
+                    throw new Exception("Invalid document format");
                 }
             }
             throw new Exception("Invalid document file extension");

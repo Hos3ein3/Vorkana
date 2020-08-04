@@ -20,7 +20,7 @@ namespace Common.FileUploader
         /// <param name="maxSize">Maximum allowed file size in bytes.</param>
         /// <param name="fileExtensions">Allowed file extensions (separate with commas and must be valid image formats).</param>
         /// <param name="width">Resize image width.</param>
-        /// <param name="height">resize image height</param>
+        /// <param name="height">resize image height.</param>
         /// <returns></returns>
         public static async Task UploadImage(IFormFile file, string path, int maxSize = 0, string fileExtensions = "", int width = 0, int height = 0)
         {
@@ -128,13 +128,96 @@ namespace Common.FileUploader
             }
             throw new Exception("Invalid audio file extension");
         }
-        public static async Task UploadDocument(IFormFile documentFiles, string path, int maxSize = 0)
+
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="file"></param>
+        /// <param name="path">Location to save file on hard drive.</param>
+        /// <param name="maxSize">Maximum allowed file size in bytes.</param>
+        /// <param name="fileExtensions">Allowed file extensions (separate with commas and must be valid document formats).</param>
+        /// <returns></returns>
+        public static async Task UploadDocument(IFormFile file, string path, int maxSize = 0, string fileExtensions = "")
         {
+            //fileExtensions = String.IsNullOrEmpty(fileExtensions) ? Extensions[FileType.Archive] : fileExtensions;
+
+            ValidateOrSetFileExtensionsListForFileType(ref fileExtensions, FileType.Archive);
+
+            string fileExtension = Path.GetExtension(file.FileName);
+            if (fileExtensions.Contains(fileExtension))
+            {
+                using (var stream = new FileStream(path, FileMode.Create))
+                {
+                    var mime = GetMimeType(stream).Split("/");
+                    string fileType = mime[0];
+                    if (fileType == "application" || fileType == "text")
+                    {
+                        if (mime[1] != "octet-stream" /*exe or dll file*/ )
+                        {
+                            await Upload(file, stream, path, maxSize);
+                        }
+                    }
+                    throw new Exception("Invalid archive format");
+                }
+            }
+            throw new Exception("Invalid document file extension");
 
         }
-        public static async Task UploadArchive(IFormFile zipFiles, string path, int maxSize = 0, bool allowExecutables = false)
-        {
 
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="file"></param>
+        /// <param name="path">Location to save file on hard drive.</param>
+        /// <param name="maxSize">Maximum allowed file size in bytes.</param>
+        /// <param name="fileExtensions">Allowed file extensions (separate with commas and must be valid archive formats).</param>
+        /// <param name="allowExecutables">allow exe or dll files</param>
+        /// <returns></returns>
+        public static async Task UploadArchive(IFormFile file, string path, int maxSize = 0, string fileExtensions = "", bool allowExecutables = false)
+        {
+            //fileExtensions = String.IsNullOrEmpty(fileExtensions) ? Extensions[FileType.Archive] : fileExtensions;
+
+            ValidateOrSetFileExtensionsListForFileType(ref fileExtensions, FileType.Archive);
+
+            string fileExtension = Path.GetExtension(file.FileName);
+            if (fileExtensions.Contains(fileExtension))
+            {
+                using (var stream = new FileStream(path, FileMode.Create))
+                {
+                    var mime = GetMimeType(stream).Split("/");
+                    string fileType = mime[0];
+                    if (fileType == "application")
+                    {
+                        if (mime[1] != "octet-stream" /*exe or dll file*/ || allowExecutables)
+                        {
+                            await Upload(file, stream, path, maxSize);
+                        }
+                    }
+                    throw new Exception("Invalid archive format");
+                }
+            }
+            throw new Exception("Invalid archive file extension");
+        }
+
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="file"></param>
+        /// <param name="path">Location to save file on hard drive.</param>
+        /// <param name="maxSize">Maximum allowed file size in bytes.</param>
+        /// <param name="fileExtensions">Allowed file extensions (separate with commas).</param>
+        /// <returns></returns>
+        public static async Task UploadAny(IFormFile file, string path, int maxSize = 0, string fileExtensions = "")
+        {
+            string fileExtension = Path.GetExtension(file.FileName);
+            if (fileExtensions.Contains(fileExtension) || String.IsNullOrEmpty(fileExtension))
+            {
+                using (var stream = new FileStream(path, FileMode.Create))
+                {
+                    await Upload(file, stream, path, maxSize);
+                }
+            }
+            throw new Exception("Invalid file extension");
         }
 
 
@@ -176,7 +259,7 @@ namespace Common.FileUploader
             [FileType.Picture] = "jpeg,jpg,png,bmp,gif,svg",
             [FileType.Video] = "mp4,3gp,mkv,wmv,avi",
             [FileType.Archive] = "zip,rar,iso,tar,tar.gz,7z,",
-            [FileType.Document] = "doc,docx,pdf,txt,html,hml,xls,xlsx,ppt,pptx",
+            [FileType.Document] = "doc,docx,pdf,txt,html,hml,css,xls,xlsx,ppt,pptx,odm,odg,otg,odp,",
             [FileType.Audio] = "mp3,voc,m4a,wav"
         };
 

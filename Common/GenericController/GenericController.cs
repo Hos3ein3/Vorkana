@@ -9,7 +9,7 @@ using Microsoft.Extensions.Options;
 using Newtonsoft.Json;
 using System;
 using System.Linq;
-using Messages.Alerts;
+using Common.Messages.Alerts;
 
 namespace Common.GenericController
 {

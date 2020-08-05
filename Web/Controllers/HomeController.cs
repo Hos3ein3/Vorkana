@@ -9,7 +9,7 @@ using Service.Interface;
 using Web.Models;
 using System.IO;
 using Common.GenericController;
-using Common.Alerts;
+using Common.Messages.Alerts;
 
 namespace Frontend.Controllers
 {

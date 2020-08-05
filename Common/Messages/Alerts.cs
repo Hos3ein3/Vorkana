@@ -4,7 +4,7 @@ using System;
 using System.Collections.Generic;
 using System.IO;
 
-namespace Messages.Alerts
+namespace Common.Messages.Alerts
 {
     public class Alerts
     {

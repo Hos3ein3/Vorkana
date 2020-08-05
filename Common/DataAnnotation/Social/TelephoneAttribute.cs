@@ -16,16 +16,7 @@ namespace Common.DataAnnotation
         /// 
         /// </summary>
         /// <param name="isRequired">Checks if the value is empty</param>
-        //public TelephoneAttribute(bool isRequired = false)
-        //{
-        //    this.isRequired = isRequired;
-        //}
-
-        /// <summary>
-        /// 
-        /// </summary>
-        /// <param name="isRequired">Checks if the value is empty</param>
-        /// <param name="region">Specify Region </param>
+        /// <param name="region">Specify a region default is IR not required if number starts with country code (null)</param>
         public TelephoneAttribute(bool isRequired = false, string region = "IR")
         {
             this.isRequired = isRequired;
@@ -64,10 +55,7 @@ namespace Common.DataAnnotation
             return ValidationResult.Success;
         }
 
-        bool IsEmpty(string value)
-        {
-            return String.IsNullOrEmpty(value);
-        }
+        bool IsEmpty(string value) => String.IsNullOrEmpty(value);
 
     }
 }

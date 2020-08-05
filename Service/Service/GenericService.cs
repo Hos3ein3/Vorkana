@@ -19,7 +19,7 @@ namespace Service.Service
 {
     public class GenericService<T> : IGenericService<T> where T : class
     {
-        
+
         protected readonly GenericRepository<T> genericRepository;
 
         public virtual IPagedList<T> Pagination(IQueryable<T> specification = null, bool isExportPageList = true, int pageNumber = 1, int pageSize = 10, bool isDesc = true, string sortColumn = "")
@@ -34,7 +34,7 @@ namespace Service.Service
             var propertyInfo = typeof(T).GetProperty(sortColumnParam);
 
             var query = specification == null ? genericRepository.GetAll() : specification;
-          
+
 
             if (isDesc)
                 resultList = query.AsEnumerable().OrderByDescending(x => propertyInfo.GetValue(x, null)).ToPagedList<T>(pageNumber, pageSize);
@@ -47,7 +47,7 @@ namespace Service.Service
         {
             IPagedList<T> resultList;
             var query = specification == null ? genericRepository.GetAll() : specification;
-            
+
             resultList = query.ToPagedList<T>(pageNumber, pageSize);
 
             return resultList;
@@ -290,29 +290,27 @@ namespace Service.Service
                 {
                     if (File.Exists(path))
                         File.Delete(path);
-                    if (fileType == FileType.Image)
+                    switch (fileType)
                     {
-                        GenericFileUploader.UploadImage(file, path, fileExtensions, 0, 0, 0);
-                    }
-                    else if (fileType == FileType.Video)
-                    {
-                        GenericFileUploader.UploadVideo(file, path, fileExtensions, 0);
-                    }
-                    else if (fileType == FileType.Sound)
-                    {
-                        GenericFileUploader.UploadSound(file, path, fileExtensions, 0);
-                    }
-                    else if (fileType == FileType.Document)
-                    {
-                        GenericFileUploader.UploadDocument(file, path, fileExtensions, 0);
-                    }
-                    else if (fileType == FileType.Zip)
-                    {
-                        GenericFileUploader.UploadZip(file, path, fileExtensions, 0);
-                    }
-                    else
-                    {
-                        GenericFileUploader.UploadFiles(file, path, fileExtensions, 0);
+                        case FileType.Audio:
+                            await GenericFileUploader.UploadAudio(file, path, maxSize: 0 * 1024 * 1024, fileExtensions);
+                            break;
+                        case FileType.Picture:
+                            await GenericFileUploader.UploadPicture(file, path, maxSize: 0 * 1024 * 1024, fileExtensions, width: 0, height: 0);
+                            break;
+                        case FileType.Video:
+                            await GenericFileUploader.UploadVideo(file, path, maxSize: 0 * 1024 * 1024, fileExtensions);
+                            break;
+                        case FileType.Document:
+                            await GenericFileUploader.UploadDocument(file, path, maxSize: 0 * 1024 * 1024, fileExtensions);
+                            break;
+                        case FileType.Archive:
+                            await GenericFileUploader.UploadArchive(file, path, maxSize: 0 * 1024 * 1024, fileExtensions);
+                            break;
+                        case FileType.Any:
+                        default:
+                            await GenericFileUploader.UploadAny(file, path, maxSize: 0 * 1024 * 1024, fileExtensions);
+                            break;
                     }
                 }
                 else if (isDeleteFile)

@@ -22,7 +22,7 @@ namespace Common.FileUploader
         /// <param name="width">Resize image width.</param>
         /// <param name="height">resize image height.</param>
         /// <returns></returns>
-        public static async Task UploadImage(IFormFile file, string path, int maxSize = 0, string fileExtensions = "", int width = 0, int height = 0)
+        public static async Task UploadPicture(IFormFile file, string path, int maxSize = 0, string fileExtensions = "", int width = 0, int height = 0)
         {
             //fileExtensions = String.IsNullOrEmpty(fileExtensions) ? Extensions[FileType.Picture] : fileExtensions;
 

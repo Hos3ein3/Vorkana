@@ -9,6 +9,7 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Application", "Application"
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Document", "Document", "{F7298532-EA49-4DC7-B035-388BC414789F}"
 	ProjectSection(SolutionItems) = preProject
+		libphonenumber.txt = libphonenumber.txt
 		..\..\V1\RegisterInfo.txt = ..\..\V1\RegisterInfo.txt
 		Tasks.txt = Tasks.txt
 	EndProjectSection

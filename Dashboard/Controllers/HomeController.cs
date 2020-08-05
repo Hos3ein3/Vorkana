@@ -5,7 +5,7 @@ using System.Linq;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Logging;
-using Dashboard.Models;
+using Service.ViewModel;
 
 namespace Dashboard.Controllers
 {

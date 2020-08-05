@@ -6,7 +6,6 @@ using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Logging;
 using Service.Interface;
-using Web.Models;
 using System.IO;
 using Common.GenericController;
 using Common.Messages.Alerts;

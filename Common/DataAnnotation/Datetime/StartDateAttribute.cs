@@ -4,7 +4,8 @@ using System.Text;
 
 namespace Common.DataAnnotation
 {
-    class StartDateAttribute
+    public class StartDateAttribute
     {
+
     }
 }

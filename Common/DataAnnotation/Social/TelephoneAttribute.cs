@@ -6,7 +6,7 @@ using System.Text;
 
 namespace Common.DataAnnotation
 {
-    class TelephoneAttribute : ValidationAttribute
+    public class TelephoneAttribute : ValidationAttribute
     {
         private readonly bool isRequired;
         private readonly string region = null;
@@ -16,16 +16,16 @@ namespace Common.DataAnnotation
         /// 
         /// </summary>
         /// <param name="isRequired">Checks if the value is empty</param>
-        public TelephoneAttribute(bool isRequired = false)
-        {
-            this.isRequired = isRequired;
-        }
+        //public TelephoneAttribute(bool isRequired = false)
+        //{
+        //    this.isRequired = isRequired;
+        //}
 
         /// <summary>
         /// 
         /// </summary>
         /// <param name="isRequired">Checks if the value is empty</param>
-        /// <param name="region">Specify Region</param>
+        /// <param name="region">Specify Region </param>
         public TelephoneAttribute(bool isRequired = false, string region = "IR")
         {
             this.isRequired = isRequired;

@@ -21,6 +21,7 @@ using System.IO;
 
 namespace Frontend
 {
+    
     public class Startup
     {
         public IConfiguration Configuration { get; }
